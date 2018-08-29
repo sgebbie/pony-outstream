@@ -75,6 +75,7 @@ actor OutStreamString is OutStream
 			, timeout: {ref (String)} iso = {ref (s:String) => None} iso
 			, count: U32 = 0) =>
 			// note, continual s.contains("abc") calls can be very expensive
+			// consider searching backwards in the string, and limiting the search window
 		_check = consume predicate
 		_timeout = consume timeout
 		_count = 0
