@@ -13,6 +13,7 @@ actor OutStreamNop is OutStream
   be print(data: ByteSeq) => None
   be printv(data: ByteSeqIter) => None
   be writev(data: ByteSeqIter) => None
+	be flush() => None
 
 actor OutStreamString is OutStream
 	"""
@@ -45,6 +46,7 @@ actor OutStreamString is OutStream
   be print(data: ByteSeq) => this.>_write(data).>_write("\n"); _retry()
   be printv(data: ByteSeqIter) => for s in data.values() do _write(s) end; _write("\n"); _retry()
   be writev(data: ByteSeqIter) => for s in data.values() do _write(s) end; _retry()
+	be flush() => None
 
 	// note, in order to ensure correct ordering use 'fun _write' internally
 	// rather than calling 'be write' via a message send.
